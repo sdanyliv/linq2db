@@ -1107,5 +1107,96 @@ namespace Tests.Linq
 						.Select (g => g.Count()));
 			}
 		}
+
+		[Test, DataContextSource]
+		public void WhereDateTimeTest1(string context)
+		{
+			using (var db = GetDataContext(context))
+			{
+				AreEqual(
+					   Types
+						.Where(_ => _.DateTimeValue > new DateTime(2009, 1, 1))
+						.Select(_ => _),
+					db.Types
+						.Where(_ => _.DateTimeValue > new DateTime(2009, 1, 1))
+						.Select(_ => _));
+			}
+		}
+
+
+		[Test, DataContextSource]
+		public void WhereDateTimeTest2(string context)
+		{
+			using (var db = GetDataContext(context))
+			{
+				AreEqual(
+					   Types
+						.Where(_ => _.DateTimeValue > new DateTime(2009, 1, 1))
+						.Select(_ => _),
+					db.Types
+						.Where(_ => _.DateTimeValue > new DateTime(2009, 1, 1))
+						.Select(_ => _));
+			}
+		}
+
+		[Test, DataContextSource]
+		public void WhereDateTimeTest3(string context)
+		{
+			using (var db = GetDataContext(context))
+			{
+				AreEqual(
+					   Types
+						.Where(_ => _.DateTimeValue == new DateTime(2009, 1, 1))
+						.Select(_ => _),
+					db.Types
+						.Where(_ => _.DateTimeValue == new DateTime(2009, 1, 1))
+						.Select(_ => _));
+			}
+		}
+
+		[Test, DataContextSource]
+		public void WhereDateTimeTest4(string context)
+		{
+			using (var db = GetDataContext(context))
+			{
+				AreEqual(
+					   Types2
+						.Where(_ => _.DateTimeValue == new DateTime(2009, 1, 1))
+						.Select(_ => _),
+					db.Types2
+						.Where(_ => _.DateTimeValue == new DateTime(2009, 1, 1))
+						.Select(_ => _));
+			}
+		}
+
+		[Test, DataContextSource]
+		public void WhereDateTimeTest5(string context)
+		{
+			using (var db = GetDataContext(context))
+			{
+				AreEqual(
+					   Types
+						.Where(_ => _.DateTimeValue.Date == new DateTime(2009, 1, 1).Date)
+						.Select(_ => _),
+					db.Types
+						.Where(_ => _.DateTimeValue.Date == new DateTime(2009, 1, 1).Date)
+						.Select(_ => _));
+			}
+		}
+
+		[Test, DataContextSource]
+		public void WhereDateTimeTest6(string context)
+		{
+			using (var db = GetDataContext(context))
+			{
+				AreEqual(
+					   Types2
+						.Where(_ => _.DateTimeValue.Value.Date == new DateTime(2009, 1, 1).Date)
+						.Select(_ => _),
+					db.Types2
+						.Where(_ => _.DateTimeValue.Value.Date == new DateTime(2009, 1, 1).Date)
+						.Select(_ => _));
+			}
+		}
 	}
 }
