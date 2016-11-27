@@ -1042,5 +1042,22 @@ namespace LinqToDB.Mapping
 
 		#endregion
 
+		#region Predecate convert 
+
+		public bool PredecateExplicitConvert(Type type)
+		{
+			var dataType = GetDataType(type);
+
+			for (int i = 0; i < Schemas.Length; i++)
+			{
+				if (Schemas[i].PredecateExplicitConvert(dataType.DataType))
+					return true;
+			}
+
+			return false;
+		}
+
+		#endregion
+
 	}
 }

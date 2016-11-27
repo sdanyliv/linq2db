@@ -624,7 +624,7 @@ namespace LinqToDB.Linq.Builder
 			return ConvertToSql(context, expr);
 		}
 
-		public ISqlExpression ConvertToSql(IBuildContext context, Expression expression, bool unwrap = false)
+		public ISqlExpression ConvertToSql(IBuildContext context, Expression expression, bool unwrap = false, bool allowConvert = false)
 		{
 			if (!PreferServerSide(expression))
 			{
@@ -1523,6 +1523,19 @@ namespace LinqToDB.Linq.Builder
 
 			var l = ConvertToSql(context, left);
 			var r = ConvertToSql(context, right, true);
+
+			if (MappingSchema.PredecateExplicitConvert(left.Type))
+			{
+				l = Convert(
+					context,
+					new SqlFunction(left.Type, "$Convert$", SqlDataType.GetDataType(left.Type), SqlDataType.GetDataType(left.Type), l));
+			}
+			if (MappingSchema.PredecateExplicitConvert(right.Type))
+			{
+				r = Convert(
+					context,
+					new SqlFunction(left.Type, "$Convert$", SqlDataType.GetDataType(right.Type), SqlDataType.GetDataType(right.Type), r));
+			}
 
 			switch (nodeType)
 			{

@@ -210,11 +210,21 @@ namespace Tests.Linq
 		[Test, NorthwindDataContext]
 		public void NestedSingleOrDefaultTest(string context)
 		{
-			using (var db = new NorthwindDB(context))
+			try
 			{
-				AreEqual(
-					   GetNorthwindAsList(context).Customer.Select(c => c.Orders.Take(1).SingleOrDefault()),
-					db.Customer.Select(c => c.Orders.Take(1).SingleOrDefault()));
+				LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
+
+				var data = GetNorthwindAsList(context);
+				using (var db = new NorthwindDB(context))
+				{
+					AreEqual(
+						data.Customer.Select(c => c.Orders.Take(1).SingleOrDefault()),
+						db.Customer.Select(c => c.Orders.Take(1).SingleOrDefault()));
+				}
+			}
+			finally
+			{
+				LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = false;
 			}
 		}
 

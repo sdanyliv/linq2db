@@ -239,5 +239,21 @@ namespace LinqToDB.Mapping
 		}
 
 		#endregion
+
+		#region Predecate convert 
+
+		private readonly HashSet<DataType> _predecateExplicitConvertTypes = new HashSet<DataType>();
+		
+		internal bool PredecateExplicitConvert(DataType type)
+		{
+			return _predecateExplicitConvertTypes.Contains(type);
+		}
+
+		internal void SetPredecateExplicitConvert(DataType type)
+		{
+			_predecateExplicitConvertTypes.Add(type);
+		}
+
+		#endregion
 	}
 }

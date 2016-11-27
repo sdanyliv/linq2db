@@ -23,6 +23,12 @@ namespace LinqToDB.DataProvider.SQLite
 			SetValueToSqlConverter(typeof(Char),     (sb,dt,v) => ConvertCharToSql    (sb, (char)v));
 
 			SetDataType(typeof(string), new SqlDataType(DataType.NVarChar, typeof(string), 255));
+
+			Schemas[0].SetPredecateExplicitConvert(DataType.DateTime);
+			Schemas[0].SetPredecateExplicitConvert(DataType.DateTime2);
+			Schemas[0].SetPredecateExplicitConvert(DataType.DateTimeOffset);
+			Schemas[0].SetPredecateExplicitConvert(DataType.Date);
+			Schemas[0].SetPredecateExplicitConvert(DataType.SmallDateTime);
 		}
 
 		static void ConvertGuidToSql(StringBuilder stringBuilder, Guid value)

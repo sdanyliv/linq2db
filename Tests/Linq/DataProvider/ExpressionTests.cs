@@ -11,32 +11,16 @@ using LinqToDB.DataProvider.SQLite;
 
 namespace Tests.DataProvider
 {
-#if !NETSTANDARD
-	using System.Configuration;
-#endif
 	[TestFixture]
 	public class ExpressionTests : TestBase
 	{
-		[Test, NorthwindDataContext]
+		[Test, NorthwindDataContext(true /*SQLite reads Int64 instead of Int32*/)]
 		public void Test1(string context)
 		{
-#if !NETSTANDARD
-			var connectionString = ConfigurationManager.ConnectionStrings[context].ConnectionString;
-#else
-			var connectionString = "TODO";
-#endif
+			var connectionString = DataConnection.GetConnectionString(context);
+			var dataProvider     = DataConnection.GetDataProvider    (context);
 
-			IDataProvider provider;
-			if (context == "NorthwindSqlite")
-			{
-				provider = new SQLiteDataProvider();
-			}
-			else
-			{
-				provider = SqlServerTools.GetDataProvider();
-			}
-
-			using (var conn = new DataConnection(provider, connectionString))
+			using (var conn = new DataConnection(dataProvider, connectionString))
 			{
 				conn.InitCommand(CommandType.Text, "SELECT 1", null, null);
 

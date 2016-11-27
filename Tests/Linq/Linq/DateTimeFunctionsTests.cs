@@ -552,8 +552,8 @@ namespace Tests.Linq
 		{
 			using (var db = GetDataContext(context))
 				AreEqual(
-					from t in from p in    Types select Sql.MakeDateTime(2010, p.ID, 1) where t.Value.Year == 2010 select t,
-					from t in from p in db.Types select Sql.MakeDateTime(2010, p.ID, 1) where t.Value.Year == 2010 select t);
+					from t in from p in    Types where p.ID < 13 select Sql.MakeDateTime(2010, p.ID, 1) where t.Value.Year == 2010 select t,
+					from t in from p in db.Types where p.ID < 13 select Sql.MakeDateTime(2010, p.ID, 1) where t.Value.Year == 2010 select t);
 		}
 
 		[Test, DataContextSource]
@@ -561,8 +561,8 @@ namespace Tests.Linq
 		{
 			using (var db = GetDataContext(context))
 				AreEqual(
-					from t in from p in    Types select new DateTime(p.DateTimeValue.Year, 10, 1) where t.Month == 10 select t,
-					from t in from p in db.Types select new DateTime(p.DateTimeValue.Year, 10, 1) where t.Month == 10 select t);
+					from t in from p in    Types where p.ID < 13 select new DateTime(p.DateTimeValue.Year, 10, 1) where t.Month == 10 select t,
+					from t in from p in db.Types where p.ID < 13 select new DateTime(p.DateTimeValue.Year, 10, 1) where t.Month == 10 select t);
 		}
 
 		[Test, DataContextSource]
@@ -579,8 +579,8 @@ namespace Tests.Linq
 		{
 			using (var db = GetDataContext(context))
 				AreEqual(
-					from t in from p in    Types select Sql.MakeDateTime(2010, p.ID, 1, 20, 35, 44) where t.Value.Year == 2010 select t,
-					from t in from p in db.Types select Sql.MakeDateTime(2010, p.ID, 1, 20, 35, 44) where t.Value.Year == 2010 select t);
+					from t in from p in    Types where p.ID < 13 select Sql.MakeDateTime(2010, p.ID, 1, 20, 35, 44) where t.Value.Year == 2010 select t,
+					from t in from p in db.Types where p.ID < 13 select Sql.MakeDateTime(2010, p.ID, 1, 20, 35, 44) where t.Value.Year == 2010 select t);
 		}
 
 		[Test, DataContextSource]
